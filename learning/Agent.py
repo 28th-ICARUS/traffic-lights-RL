@@ -3,7 +3,7 @@ import random
 import Enviroment
 from collections import defaultdict
 
-
+episodeLog, timeStepLog = [], []
 
 class Q_Agent :
     def __init__ (self, actions) :
@@ -68,6 +68,8 @@ if __name__ == "__main__" :
             agent.update_Q(state, action, reward, next_state)
 
             if done :
+                episodeLog.append(episode)
+                timeStepLog.append(timeStep)
                 print(episode, timeStep)
                 break
             else :
