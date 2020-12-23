@@ -10,7 +10,7 @@ class Q_Agent :
         self.actions = actions
         self.step_size = 0.1
         self.discount_factor = 0.75
-        self.epsilon = 0.75
+        self.epsilon = 0.8                          #0.8 / 2000 = 0.0004
         self.q_table = defaultdict(lambda : [0.0, 0.0])      #큐함수 나타낸다
         
     def update_Q (self, state, action, reward, next_state) :
@@ -46,7 +46,7 @@ class Q_Agent :
 def arg_max (q_list) :
     max_idx_list = np.argwhere(q_list == np.amax(q_list))
     max_idx_list = max_idx_list.flatten().tolist()
-    return random.choice(max_idx_list)
+    return random.choice(max_idx_list)                      #최대 큐함수 가지는 행동 중 랜덤으로 하나 반환
 
 
 
@@ -68,9 +68,13 @@ if __name__ == "__main__" :
             agent.update_Q(state, action, reward, next_state)
 
             if done :
+<<<<<<< Updated upstream
                 episodeLog.append(episode)
                 timeStepLog.append(timeStep)
                 print(episode, timeStep)
+=======
+                print(episode + 1, timeStep)
+>>>>>>> Stashed changes
                 break
             else :
                 timeStep += 1
