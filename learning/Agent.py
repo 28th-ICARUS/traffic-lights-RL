@@ -11,7 +11,7 @@ class Q_Agent :
         self.step_size = 0.1
         self.discount_factor = 0.75
         self.epsilon = 0.75
-        self.q_table = defaultdict(lambda : [0.0, 0.0, 0.0, 0.0, 0.0])
+        self.q_table = defaultdict(lambda : [0.0, 0.0])      #큐함수 나타낸다
         
     def update_Q (self, state, action, reward, next_state) :
         state, next_state = str(state), str(next_state)
@@ -52,18 +52,23 @@ def arg_max (q_list) :
 
 if __name__ == "__main__" :
     env = Enviroment.Env()
-    agent = Q_Agent(actions = list(range(5))
-                    
+    agent = Q_Agent(actions = [0,0])
+    timeStep = 1
     for episode in range(2000):
-        state = env.tellState()
-
+        state = env.reset()
+        
+        timeStep = 1
+                    
         while True:
             env.render()
 
             action = agent.get_action(state)
             next_state, reward, done = env.step(action)
             state = next_state
-            update_Q(state, action, reward, next_state)
+            agent.update_Q(state, action, reward, next_state)
 
             if done :
+                print(episode, timeStep)
                 break
+            else :
+                timeStep += 1

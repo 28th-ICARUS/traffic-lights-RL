@@ -1,13 +1,14 @@
-get_ipython().run_line_magic('matplotlib', 'inline')
+#get_ipython().run_line_magic('matplotlib', 'inline')
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import random
+import time
 
 
 
 troll, num, road_len, interval, dis, speed = 0.02, 100, 2000, 250, 5, 3
 
-car_data = [[0,0]*num]          #인덱스가 작을수록 앞에 있는 차, [위치, 속도]
+car_data = [[0,0] for _ in range(100)]          #인덱스가 작을수록 앞에 있는 차, [위치, 속도]
 
 car_state = [0,0,0,0,0]         #일종의 대푯값 => 0,25,50,75,99번 인덱스 차량 위치
 
@@ -15,8 +16,9 @@ tLight_Data = [[250, 0, 0],[500, 0, 0],[750, 0, 0],[1000, 0, 0],[1250, 0, 0],[15
                                 #[loc, state(초록불 = 0, 빨간불 = 1), delay_log(빨간불이었던 타임스텝 - 누적X)]
 
     
-class Env() :
+class Env :
     def __init__(self) :                            #상수 설정
+        super(Env, self).__init__()
         self.troll = troll
         self.num = num
         self.len = road_len
@@ -85,6 +87,7 @@ class Env() :
             tLight_Data[i][1] = action[i]
 
     def reset(self) :                               #환경 초기화
+        self.update()
         car_data = [[0,0]*num]
         tLight_Data = [[250, 0, 0],[500, 0, 0],[750, 0, 0],[1000, 0, 0],[1250, 0, 0],[1500, 0, 0],[1750, 0, 0]]
 
