@@ -2,7 +2,8 @@ import numpy as np
 import random
 import Enviroment
 from collections import defaultdict
-
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
 
 class Q_Agent :
