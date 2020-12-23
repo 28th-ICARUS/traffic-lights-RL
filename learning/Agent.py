@@ -28,7 +28,20 @@ class Q_Agent :
             action = arg_max(q_list)
         return action
 
-
+    def visualization(self):
+        n=0
+        for i in range(self.len):
+            if car_data[n][0]==i :
+                plt.bar(i, 3-car_data[n][1], width=0.1)
+                n=n+1
+            else:
+                plt.bar(i, 0, width=0.1)
+        
+        plt.ylim(0, 3.5)
+        plt.xlabel("Road")
+        plt.ylabel("Degree of congetion(Vmax-Vcar)")
+        plt.title("Visualization")
+        plt.show()
 
 def arg_max (q_list) :
     max_idx_list = np.argwhere(q_list == np.amax(q_list))
