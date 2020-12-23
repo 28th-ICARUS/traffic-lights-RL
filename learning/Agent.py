@@ -2,8 +2,15 @@ import numpy as np
 import random
 import Enviroment
 from collections import defaultdict
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
+
 
 episodeLog, timeStepLog = [], []
+
+
+
 
 class Q_Agent :
     def __init__ (self, actions) :
@@ -68,13 +75,10 @@ if __name__ == "__main__" :
             agent.update_Q(state, action, reward, next_state)
 
             if done :
-<<<<<<< Updated upstream
                 episodeLog.append(episode)
                 timeStepLog.append(timeStep)
                 print(episode, timeStep)
-=======
                 print(episode + 1, timeStep)
->>>>>>> Stashed changes
                 break
             else :
                 timeStep += 1
