@@ -16,7 +16,7 @@ tLight_Data = [[250, 0, 0],[500, 0, 0],[750, 0, 0],[1000, 0, 0],[1250, 0, 0],[15
                                 #[loc, state(초록불 = 0, 빨간불 = 1), delay_log(빨간불이었던 타임스텝 - 누적X)]
 
     
-class Env :
+class Env():
     def __init__(self) :                            #상수 설정
         super(Env, self).__init__()
         self.troll = troll
@@ -110,21 +110,4 @@ class Env :
         plt.title("Visualization")
         plt.show()
 
-
-
-def animate(i) :
-    loc, speed = [], []
-    for i in range(len(car_data)) :
-        loc.append(car_data[i][0])
-        speed.append(3 - car_data[i][1])
-        
-    graph.clear()
-    graph.append(loc, speed)
-
-car_state = [car_data[0][0], car_data[25][0], car_data[50][0], car_data[75][0], car_data[99][0]]
-
-#fig = plt.figure()
-#graph = fig.add_subplot(100, 10, 1)
-
-#ani = animation.FuncAnimation(fig, animate, interval = 1000)
-#plt.show()
+#car_state = [car_data[0][0], car_data[25][0], car_data[50][0], car_data[75][0], car_data[99][0]]
