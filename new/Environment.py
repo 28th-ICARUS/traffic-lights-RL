@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
-import time
 
 np.random.seed(0)
 
@@ -82,8 +81,7 @@ class Env():
 
         if(car_data) :
             next_state = [car_data[0][0], car_data[num//4][0], car_data[num//2][0], car_data[(num*3)//4][0], car_data[num-1][0]]
-        #print(car_data[0][1], car_data[num//4][1], car_data[num//2][1], car_data[(num*3)//4][1], car_data[num-1][1])
-        return next_state, R, done
+            return next_state, R, done
 
     def act(self, action) :                         #action 따라 움직인다
         global tLight_data
@@ -99,7 +97,3 @@ class Env():
         car_data = [[i*3,3] for i in range(num)]
         tLight_Data = [[250, 0, 0],[500, 0, 0],[750, 0, 0],[1000, 0, 0],[1250, 0, 0],[1500, 0, 0],[1750, 0, 0]]
         return car_data[0][0], car_data[num//4][0], car_data[num//2][0], car_data[(num*3)//4][0], car_data[num-1][0]
-
-    def see(self) :
-        global tLight_data
-        print(tLight_data)

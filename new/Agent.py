@@ -3,14 +3,10 @@ import Environment
 from collections import defaultdict
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-import time
 
 
 
 episodeLog, timeStepLog = [], []
-
-#f = open("log_002.txt",'w')
-
 
 class Q_Agent :
     def __init__ (self, actions) :
@@ -25,7 +21,6 @@ class Q_Agent :
         q_1 = self.q_table[state][action]
         q_2 = reward + self.discount_factor * max(self.q_table[next_state])
         self.q_table[state][action] += self.step_size * (q_2 - q_1)
-        #print(self.q_table[state], end = '  ')
         
     def get_action (self, state) :                                              #다음 행동 선택
         if np.random.rand() < self.epsilon :
@@ -45,23 +40,6 @@ def arg_max (q_list) :
 
 
 
-def visualization(self):
-    n=0
-    for i in range(self.len):
-        if car_data[n][0]==i :
-            plt.bar(i, 3-car_data[n][1], width=0.1)
-            n=n+1
-        else:
-            plt.bar(i, 0, width=0.1)
-    
-    plt.ylim(0, 3.5)
-    plt.xlabel("Road")
-    plt.ylabel("Degree of congetion(Vmax-Vcar)")
-    plt.title("Visualization")
-    plt.show()
-
-
-
 if __name__ == "__main__" :
     env = Environment.Env()
     tLight1 = Q_Agent(actions = [0,0])
@@ -70,7 +48,6 @@ if __name__ == "__main__" :
     tLight4 = Q_Agent(actions = [0,0])
     tLight5 = Q_Agent(actions = [0,0])
     tLight6 = Q_Agent(actions = [0,0])
-    tLight7 = Q_Agent(actions = [0,0])
     
     for episode in range(1,10002):
         state = env.reset()
@@ -81,7 +58,6 @@ if __name__ == "__main__" :
             
             if episode > 10000 :
                 tLight1.epsilon = 0
-                print(state, episode, timeStep)
 
             action1 = tLight1.get_action(state)
             action2 = tLight2.get_action(state)
@@ -89,12 +65,8 @@ if __name__ == "__main__" :
             action4 = tLight4.get_action(state)
             action5 = tLight5.get_action(state)
             action6 = tLight6.get_action(state)
-            action7 = tLight7.get_action(state)
-            #print(action1, action2, action3, action4, action5, action6, action7)
-            next_state, reward, done = env.step([action1, action2, action3, action4, action5, action6, action7])
+            next_state, reward, done = env.step([action1, action2, action3, action4, action5, action6])
             state = next_state
-
-            #env.see()
             
             tLight1.update_Q(state, action1, reward, next_state)
             tLight2.update_Q(state, action2, reward, next_state)
@@ -102,9 +74,7 @@ if __name__ == "__main__" :
             tLight4.update_Q(state, action4, reward, next_state)
             tLight5.update_Q(state, action5, reward, next_state)
             tLight6.update_Q(state, action6, reward, next_state)
-            tLight7.update_Q(state, action7, reward, next_state)
-            #print('\n')
-            env.act([action1, action2, action3, action4, action5, action6, action7])
+            env.act([action1, action2, action3, action4, action5, action6])
 
             if done :
                 episodeLog.append(episode)
@@ -113,6 +83,7 @@ if __name__ == "__main__" :
                 break
             else :
                 timeStep += 1
+                
     print('finished!!!')
     print(episodeLog)
     print(timeStepLog)
