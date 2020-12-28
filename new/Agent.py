@@ -72,18 +72,17 @@ if __name__ == "__main__" :
     tLight6 = Q_Agent(actions = [0,0])
     tLight7 = Q_Agent(actions = [0,0])
     
-    for episode in range(1,5001):
+    for episode in range(1,10002):
         state = env.reset()
         
         timeStep = 1
                     
         while True :
-            '''
-            if episode > 2000 :
+            
+            if episode > 10000 :
                 tLight1.epsilon = 0
-            '''
-                
-            #print(state, episode, timeStep)
+                print(state, episode, timeStep)
+
             action1 = tLight1.get_action(state)
             action2 = tLight2.get_action(state)
             action3 = tLight3.get_action(state)
