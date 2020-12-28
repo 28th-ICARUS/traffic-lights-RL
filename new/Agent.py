@@ -9,7 +9,7 @@ import time
 
 episodeLog, timeStepLog = [], []
 
-
+#f = open("log_002.txt",'w')
 
 
 class Q_Agent :
@@ -24,7 +24,8 @@ class Q_Agent :
         state, next_state = str(state), str(next_state)
         q_1 = self.q_table[state][action]
         q_2 = reward + self.discount_factor * max(self.q_table[next_state])
-        self.q_table[state][action] += self.step_size * (q_2 - q_1)          
+        self.q_table[state][action] += self.step_size * (q_2 - q_1)
+        #print(self.q_table[state])
         
     def get_action (self, state) :                                              #다음 행동 선택
         if np.random.rand() < self.epsilon :
@@ -70,17 +71,14 @@ if __name__ == "__main__" :
     tLight5 = Q_Agent(actions = [0,0])
     tLight6 = Q_Agent(actions = [0,0])
     tLight7 = Q_Agent(actions = [0,0])
-    timeStep = 1
     
-    for episode in range(1,1001):
+    for episode in range(1,501):
         state = env.reset()
         
         timeStep = 1
                     
         while True:
-            print(state, episode, timeStep)
-            env.see_state()
-            
+            #print(state, episode, timeStep)
             action1 = tLight1.get_action(state)
             action2 = tLight2.get_action(state)
             action3 = tLight3.get_action(state)
@@ -88,9 +86,10 @@ if __name__ == "__main__" :
             action5 = tLight5.get_action(state)
             action6 = tLight6.get_action(state)
             action7 = tLight7.get_action(state)
-            
+            #print(action1, action2, action3, action4, action5, action6, action7)
             next_state, reward, done = env.step([action1, action2, action3, action4, action5, action6, action7])
             state = next_state
+            #print('                          ',next_state)
             
             tLight1.update_Q(state, action1, reward, next_state)
             tLight2.update_Q(state, action2, reward, next_state)
@@ -99,14 +98,23 @@ if __name__ == "__main__" :
             tLight5.update_Q(state, action5, reward, next_state)
             tLight6.update_Q(state, action6, reward, next_state)
             tLight7.update_Q(state, action7, reward, next_state)
+            #env.see()
+            #print('\n')
 
             if done :
                 episodeLog.append(episode)
                 timeStepLog.append(timeStep)
+                print(episode, timeStep)
+                #f.write(str(episode))
+                #f.write(str(timeStep))
+                #f.write('\n')
                 break
             else :
                 timeStep += 1
-            time.sleep(0.02)
+            #time.sleep(0.0001)
+    #f.close()
     print('finished!!!')
-    print(episodeLog)
-    print(timeStepLog)
+    #print(episodeLog)
+    #print(timeStepLog)
+    plt.plot(episodeLog, timeStepLog)
+    plt.show()
